@@ -1,0 +1,47 @@
+<nz-layout>
+  <nz-header>
+    <ul nz-menu nzTheme="dark" nzMode="horizontal">
+     PHONEBOOK TEST
+    </ul>
+  </nz-header>
+  <nz-content>
+    <nz-input-group   [nzSuffix]="suffixIconSearch" >
+      <div nz-row [nzGutter]="8">
+        <div nz-col nzSpan="5">
+      <input type="text"  nz-input placeholder="Ingrese nombre y/o apellido a buscar" (keyup)="onKeyPersona($event.target.value)"  (keydown)="$event.stopPropagation()" />
+      <ng-template #suffixIconSearch>
+        <i nz-icon nzType="search"></i>
+      </ng-template>
+    </div>
+    </div>
+    </nz-input-group>
+  
+    <div class="inner-content">
+      <nz-table #basicTable  [nzData]="selectPersona">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of selectPersona">
+            <td>{{data.nombre}}</td>
+            <td>{{data.apellido}}</td>
+            <td>
+            <!--   <nz-divider nzType="vertical"></nz-divider> -->
+              <a>Detalles</a>
+              
+             
+            </td>
+          </tr>
+        </tbody>
+      </nz-table> 
+    </div>
+  </nz-content>
+  
+</nz-layout>
+ 
+ 
+ 
