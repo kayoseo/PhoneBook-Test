@@ -13,7 +13,7 @@ export class PersonaService {
   }
 
   get(): Observable<any> {
-     const headers = new HttpHeaders({'Content-Type':'application/json; charset=iso-8859-2'}); 
-    return this._http.get<any>(this.url+'persona', {headers:headers })
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=iso-8859-2' });
+    return this._http.get<any>(this.url + 'persona', { headers: headers })
   }
 }

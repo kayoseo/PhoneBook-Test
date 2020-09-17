@@ -17,7 +17,7 @@ export class Persona {
 
 
   constructor(id_persona, nombre, apellido, telefono, rut,
-     numero, id_comuna, nombre_comuna, activo) {
+    numero, id_comuna, nombre_comuna, activo) {
     this.id = id_persona;
     this.nombre = nombre;
     this.apellido = apellido;
