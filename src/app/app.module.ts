@@ -9,12 +9,14 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import es from '@angular/common/locales/es';
+import { ListadoComponent } from './componentes/listado/listado.component';
 
 registerLocaleData(es);
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ListadoComponent
   ],
   imports: [
     BrowserModule,

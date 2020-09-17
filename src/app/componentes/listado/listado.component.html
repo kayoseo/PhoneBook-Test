@@ -1,0 +1,84 @@
+<nz-layout>
+  <nz-header>
+    <ul nz-menu nzTheme="dark" nzMode="horizontal">
+      PHONEBOOK TEST
+    </ul>
+  </nz-header>
+  <nz-content>
+    <nz-input-group>
+
+      <div nz-row>
+
+        <!-- Filtro por nombre y/o apellido -->
+        <div nz-col nzSpan="5">
+          <input type="text" nz-input placeholder="Ingrese nombre y/o apellido a buscar"
+            (keyup)="onKeyPersona($event.target.value)" (keydown)="$event.stopPropagation()" [ngModel]="valueSearch" />
+
+        </div>
+
+        <!-- Filtro por Región -->
+        <div nz-col nzSpan="5">
+          <nz-select nzPlaceHolder="Seleccione región" nzShowSearch nzAllowClear style="width:100%;"
+            [ngModel]="selectRegion" (ngModelChange)="filterRegion($event)">
+            <ng-container *ngFor="let region of regiones">
+              <nz-option [nzLabel]="region.nombre" [nzValue]="region.id"></nz-option>
+            </ng-container>
+          </nz-select>
+        </div>
+
+        <!-- Filtro por comuna -->
+        <div nz-col nzSpan="5" *ngIf="comunas.length>0">
+          <nz-select nzPlaceHolder="Seleccione comuna" nzShowSearch nzAllowClear style="width:100%;"
+            [ngModel]="selectComuna" (ngModelChange)="filterComuna($event)">
+            <ng-container *ngFor="let comuna of comunas">
+              <nz-option [nzLabel]="comuna.nombre" [nzValue]="comuna.id"></nz-option>
+            </ng-container>
+          </nz-select>
+        </div>
+      </div>
+    </nz-input-group>
+
+
+    <!-- Listado de personas -->
+    <div class="inner-content">
+      <nz-table [nzData]="selectPersona">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let data of selectPersona">
+            <!-- Mostrar solo si la persona esta habilitada en el sistema(activo=1) -->
+            <tr *ngIf="data.activo===1">
+              <td>{{data.nombre}}</td>
+              <td>{{data.apellido}}</td>
+              <td>
+                <a (click)="showModal(data)">Detalle</a>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </nz-table>
+    </div>
+  </nz-content>
+</nz-layout>
+
+
+
+<!-- Modal que muestra el detalle -->
+<nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleModal&&detallePersona"
+  nzTitle="{{detallePersona.nombre}} {{detallePersona.apellido}}" (nzOnCancel)="handleCancelModal()"
+  (nzOnOk)="handleOkModal()">
+  <p>Rut: {{detallePersona.rut}}
+    <nz-alert *ngIf="!rutValido" nzType="error" nzMessage="Rut invalido"></nz-alert>
+  </p>
+  <p>Telefono: {{detallePersona.telefono}}
+    <nz-alert *ngIf="!telefonoValido" nzType="error" nzMessage="Telefono invalido"></nz-alert>
+  </p>
+
+
+
+</nz-modal>
