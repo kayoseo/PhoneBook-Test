@@ -6,13 +6,38 @@
   </nz-header>
   <nz-content>
     <nz-input-group   [nzSuffix]="suffixIconSearch" >
-      <div nz-row [nzGutter]="8">
+      <div nz-row >
         <div nz-col nzSpan="5">
-      <input type="text"  nz-input placeholder="Ingrese nombre y/o apellido a buscar" (keyup)="onKeyPersona($event.target.value)"  (keydown)="$event.stopPropagation()" />
+      <input type="text"  nz-input placeholder="Ingrese nombre y/o apellido a buscar" (keyup)="onKeyPersona($event.target.value)"  (keydown)="$event.stopPropagation()" [ngModel]="valueSearch" />
       <ng-template #suffixIconSearch>
         <i nz-icon nzType="search"></i>
       </ng-template>
     </div>
+      <div nz-col nzSpan="5">
+  
+          <nz-select nzPlaceHolder="Seleccione región" nzShowSearch nzAllowClear style="width:100%;" [ngModel]="selectRegion" (ngModelChange)="filterRegion($event)">
+            <ng-container *ngFor="let region of regiones">
+              <nz-option [nzLabel]="region.nombre" [nzValue]="region.id" ></nz-option>
+            </ng-container>
+            
+           
+          </nz-select>
+        </div>
+        <div nz-col nzSpan="5" *ngIf="comunas.length>0">
+  
+          <nz-select nzPlaceHolder="Seleccione comuna" nzShowSearch nzAllowClear style="width:100%;" [ngModel]="selectComuna" (ngModelChange)="filterComuna($event)">
+            <ng-container *ngFor="let comuna of comunas">
+              <nz-option [nzLabel]="comuna.nombre" [nzValue]="comuna.id" ></nz-option>
+            </ng-container>
+            
+           
+          </nz-select>
+        </div>
+        
+          <!-- <input type="text" nz-input [ngModel]="'Xihu District, Hangzhou'" style="width:50%;" /> -->
+        
+      
+    
     </div>
     </nz-input-group>
   
@@ -26,16 +51,22 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let data of selectPersona">
-            <td>{{data.nombre}}</td>
+         <ng-container *ngFor="let data of selectPersona">
+          <tr *ngIf="data.activo===1">
+          
+            <td >{{data.nombre}}</td>
             <td>{{data.apellido}}</td>
             <td>
             <!--   <nz-divider nzType="vertical"></nz-divider> -->
-              <a>Detalles</a>
+              <a>Detalle</a>
               
              
             </td>
+     
+ 
           </tr>
+        </ng-container>
+   
         </tbody>
       </nz-table> 
     </div>
