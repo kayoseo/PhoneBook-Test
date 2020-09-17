@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Persona } from '../../models/persona';
-import { Region } from '../../models/region';
+import { Persona } from '../../modelos/persona';
+import { Region } from '../../modelos/region';
 import { PersonaService } from 'src/app/services/persona.service';
 import { RegionService } from 'src/app/services/region.service';
 import { NzTableModule } from 'ng-zorro-antd/table';
